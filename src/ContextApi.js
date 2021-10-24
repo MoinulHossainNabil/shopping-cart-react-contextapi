@@ -15,7 +15,7 @@ export class ContextApi extends Component {
         }
     }
 
-    calculateSumFromArrayOfObjects = (arr, prop) => {
+    calculateCartTotal = (arr, prop) => {
         return arr.reduce((item, current) => item + current[prop] * current.quantity, 0);
     }
 
@@ -34,14 +34,14 @@ export class ContextApi extends Component {
                     newCart.push(i);
             }
             this.setState(
-                {cart: newCart, cartTotal: this.calculateSumFromArrayOfObjects(newCart, 'price')}
+                {cart: newCart, cartTotal: this.calculateCartTotal(newCart, 'price')}
             )
             localStorage.setItem('cart', JSON.stringify(newCart));
         }
         else {
             currentCart.push({...item, quantity: 1});
             this.setState(
-                {cart: currentCart, cartTotal: this.calculateSumFromArrayOfObjects(currentCart, 'price')}
+                {cart: currentCart, cartTotal: this.calculateCartTotal(currentCart, 'price')}
             ) 
             localStorage.setItem('cart', JSON.stringify(currentCart));
         }
@@ -61,7 +61,7 @@ export class ContextApi extends Component {
             if(myCart !=='') {
                 this.setState({
                     cart: JSON.parse(myCart),
-                    cartTotal: this.calculateSumFromArrayOfObjects(JSON.parse(myCart), 'price')
+                    cartTotal: this.calculateCartTotal(JSON.parse(myCart), 'price')
                 })
             }
         }
